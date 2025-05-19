@@ -24,7 +24,7 @@ export default function NewsList() {
 
   useEffect(() => {
     setCategoriesLoading(true);
-    fetch('http://localhost:3001/news/categories')
+    fetch('http://localhost:3001/api/v1/categories')
       .then(res => res.json())
       .then(data => {
         setCategories([{ key: 'ALL', value: 'all' }, ...data]);
@@ -35,7 +35,7 @@ export default function NewsList() {
   useEffect(() => {
     setNewsLoading(true);
     const qs = selectedCategory !== 'all' ? `?category=${selectedCategory}` : '';
-    fetch(`http://localhost:3001/news${qs}`)
+    fetch(`http://localhost:3001/api/v1/news${qs}`)
       .then(res => res.json())
       .then(data => {
         setNews(data);

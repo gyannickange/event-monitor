@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
 
-import { NewsCategoryEnum } from '../news.enum';
-import { OPENAI_API_KEY } from 'src/common/constants';
+import { CategoryEnum } from '../../categories/categories.enum';
+import { OPENAI_API_KEY } from '../../common/constants';
 
 @Injectable()
 export class NewsAIService {
@@ -15,7 +15,7 @@ export class NewsAIService {
   }
 
   async classifyCategory(title: string, description: string): Promise<string> {
-    const categories = Object.values(NewsCategoryEnum);
+    const categories = Object.values(CategoryEnum);
     const prompt = `
 You are an expert news classifier. Given the following news article title and description, classify it into ONE category from this list only: ${categories.join(", ")}.
 If you are unsure, reply with "world".
@@ -36,7 +36,7 @@ Category:
     });
 
     const raw = response.choices[0]?.message?.content?.trim().toLowerCase();
-    if (raw && categories.includes(raw as NewsCategoryEnum)) return raw;
+    if (raw && categories.includes(raw as CategoryEnum)) return raw;
     return 'world';
   }
 }

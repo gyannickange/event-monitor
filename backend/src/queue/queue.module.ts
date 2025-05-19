@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
-import { REDIS_HOST, REDIS_PORT } from 'src/common/constants';
+import { REDIS_HOST, REDIS_PORT } from '../common/constants';
 
 @Module({
   imports: [

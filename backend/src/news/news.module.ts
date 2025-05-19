@@ -5,6 +5,7 @@ import { NewsService } from './news.service';
 import { NewsProcessor } from './news.processor';
 import { NewsSchedulerService } from '../jobs/news-scheduler.service';
 import { NewsAIService } from './ai/news.service';
+import { NewsController } from './news.controller';
 import { QueueModule } from '../queue/queue.module';
 
 @Module({
@@ -12,6 +13,7 @@ import { QueueModule } from '../queue/queue.module';
     TypeOrmModule.forFeature([News]),
     QueueModule,
   ],
+  controllers: [NewsController],
   providers: [
     NewsService,
     NewsProcessor,

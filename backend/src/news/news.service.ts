@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { News } from './entities/news.entity';
-import { NewsCategoryEnum } from './news.enum';
+import { CategoryEnum } from '../categories/categories.enum';
 
 @Injectable()
 export class NewsService {
@@ -31,12 +31,12 @@ export class NewsService {
 
   async updateCategory(
     id: number,
-    category: NewsCategoryEnum
+    category: CategoryEnum
   ) {
     await this.repo.update(id, { category });
   }
 
-  async findAll(category?: NewsCategoryEnum): Promise<News[]> {
+  async findAll(category?: CategoryEnum): Promise<News[]> {
     if (category) return this.repo.find({ where: { category } });
     return this.repo.find();
   }
