@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
-import { NewsCategoryEnum } from './news.enum';
+import { CategoryEnum } from '../categories/categories.enum';
 
 @Controller('news')
 export class NewsController {
@@ -19,20 +19,12 @@ export class NewsController {
   }
 
   @Get()
-  async findAll(@Query('category') category?: NewsCategoryEnum) {
+  async findAll(@Query('category') category?: CategoryEnum) {
     return this.service.findAll(category);
   }
 
   @Get(':slug')
   async findOneBySlug(@Query('slug') slug: string) {
     return this.service.findOneBySlug(slug);
-  }
-
-  @Get('categories')
-  getCategories() {
-    return Object.entries(NewsCategoryEnum).map(([key, value]) => ({
-      key,
-      value,
-    }));
   }
 }

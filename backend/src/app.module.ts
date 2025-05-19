@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { NewsModule } from './news/news.module';
 import { QueueModule } from './queue/queue.module';
+import { CategoriesModule } from './categories/categories.module';
 import {
   DB_HOST,
   DB_NAME,
@@ -29,6 +30,7 @@ import {
     }),
     QueueModule,
     NewsModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}
