@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
+import { REDIS_HOST, REDIS_PORT } from 'src/common/constants';
 
 @Module({
   imports: [
     BullModule.forRoot({
       connection: {
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT!, 10),
+        host: REDIS_HOST,
+        port: REDIS_PORT,
       },
     }),
     BullModule.registerQueue({ name: 'news-daily-job' }),
   ],
+  exports: [BullModule],
 })
 export class QueueModule {}
