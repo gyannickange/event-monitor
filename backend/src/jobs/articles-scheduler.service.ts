@@ -3,20 +3,20 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 
 @Injectable()
-export class NewsSchedulerService implements OnModuleInit {
+export class ArticlesSchedulerService implements OnModuleInit {
   constructor(
-    @InjectQueue('news-daily-job') private readonly queue: Queue
+    @InjectQueue('articles-daily-job') private readonly queue: Queue
   ) {}
 
   async onModuleInit() {
     await this.queue.add(
-      'fetch-yesterday-news',
+      'fetch-yesterday-articles',
       {},
       {
         repeat: { pattern: '0 0 * * *' }, // Tous les jours à 0h
         removeOnComplete: true,
         removeOnFail: true,
-        jobId: `fetch-yesterday-news-${new Date().getTime()}`,
+        jobId: `fetch-yesterday-articles-${new Date().getTime()}`,
       }
     );
   }

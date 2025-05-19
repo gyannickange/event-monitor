@@ -5,11 +5,11 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Category } from '@/types/category';
 import Loader from './loader';
-import { News } from '@/types/news';
+import { Article } from '@/types/article';
 import { formatDate } from '@/utils/date-format';
-import { getCategoryColor } from '@/utils/news-severity';
+import { getCategoryColor } from '@/utils/article-category';
 
-export default function NewsList() {
+export default function ArticlesList() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -17,8 +17,8 @@ export default function NewsList() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
 
-  const [news, setNews] = useState<News[]>([]);
-  const [newsLoading, setNewsLoading] = useState(true);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [articlesLoading, setArticlesLoading] = useState(true);
 
   const selectedCategory = (searchParams.get('category') || 'all').toLowerCase();
 
@@ -33,13 +33,13 @@ export default function NewsList() {
   }, []);
 
   useEffect(() => {
-    setNewsLoading(true);
+    setArticlesLoading(true);
     const qs = selectedCategory !== 'all' ? `?category=${selectedCategory}` : '';
-    fetch(`http://localhost:3001/api/v1/news${qs}`)
+    fetch(`http://localhost:3001/api/v1/articles${qs}`)
       .then(res => res.json())
       .then(data => {
-        setNews(data);
-        setNewsLoading(false);
+        setArticles(data);
+        setArticlesLoading(false);
       });
   }, [selectedCategory]);
 
@@ -55,7 +55,7 @@ export default function NewsList() {
 
   return (
     <section className="max-w-6xl min-h-screen mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold mb-6">📰 Latest News</h2>
+      <h2 className="text-3xl font-bold mb-6">📰 Latest Articles</h2>
       <div className="flex gap-3 mb-8 flex-wrap">
         {categories.map(cat => (
           <a
@@ -77,12 +77,12 @@ export default function NewsList() {
         ))}
       </div>
 
-      {!newsLoading ? (
+      {!articlesLoading ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {news.map(item => (
+            {articles.map(item => (
               <Link
-                href={`/news/${item.slug}`}
+                href={`/articles/${item.slug}`}
                 key={item.id}
                 className="block bg-white rounded-xl shadow hover:shadow-lg transition p-4 group"
               >
@@ -108,8 +108,8 @@ export default function NewsList() {
               </Link>
             ))}
           </div>
-          {news.length === 0 && (
-            <div className="text-center text-gray-400 py-8">No news found.</div>
+          {articles.length === 0 && (
+            <div className="text-center text-gray-400 py-8">No articles found.</div>
           )}
         </>
       ) : (

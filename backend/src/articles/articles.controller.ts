@@ -1,21 +1,21 @@
 import { Controller, Post, Body, Get, Query } from '@nestjs/common';
-import { NewsService } from './news.service';
-import { CreateNewsDto } from './dto/create-news.dto';
+import { ArticlesService } from './articles.service';
+import { CreateArticlesDto } from './dto/create-articles.dto';
 import { CategoryEnum } from '../categories/categories.enum';
 
-@Controller('news')
-export class NewsController {
+@Controller('articles')
+export class ArticlesController {
   constructor(
-    private readonly service: NewsService
+    private readonly service: ArticlesService
   ) {}
 
   @Post()
-  async create(@Body() createNewsDto: CreateNewsDto) {
-    const news = await this.service.create({
-      ...createNewsDto,
+  async create(@Body() createArticlesDto: CreateArticlesDto) {
+    const articles = await this.service.create({
+      ...createArticlesDto,
     });
 
-    return news;
+    return articles;
   }
 
   @Get()

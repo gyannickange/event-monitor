@@ -16,16 +16,16 @@ src/
 │   └── configuration.ts
 │
 ├── modules/               // Feature modules (domain logic)
-│   ├── news/
+│   ├── articles/
 │   │   ├── dto/
 │   │   ├── entities/
-│   │   ├── news.controller.ts
-│   │   ├── news.service.ts
-│   │   ├── news.module.ts
-│   │   ├── news-ai.service.ts
-│   │   ├── news-scheduler.service.ts
-│   │   ├── news.processor.ts
-│   │   └── news-severity.enum.ts
+│   │   ├── articles.controller.ts
+│   │   ├── articles.service.ts
+│   │   ├── articles.module.ts
+│   │   ├── articles-ai.service.ts
+│   │   ├── articles-scheduler.service.ts
+│   │   ├── articles.processor.ts
+│   │   └── articles-severity.enum.ts
 │   ├── queue/
 │   │   └── queue.module.ts
 │   └── ... (other modules)
@@ -44,7 +44,7 @@ src/
 └── shared/                // Reusable components/services (if needed)
     └── ...
 
-// Each module (e.g., news) contains its own controller, service, DTOs, entities, and related files.
+// Each module (e.g., articles) contains its own controller, service, DTOs, entities, and related files.
 // Use 'common/' for cross-cutting concerns. Use 'config/' for configuration logic.
 // Place BullMQ processors in 'jobs/' if they are shared, or inside the module if tightly coupled.
 // This structure is scalable, testable, and maintainable.

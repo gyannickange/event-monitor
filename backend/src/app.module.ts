@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { NewsModule } from './news/news.module';
+import { ArticlesModule } from './articles/articles.module';
 import { QueueModule } from './queue/queue.module';
 import { CategoriesModule } from './categories/categories.module';
 import {
@@ -29,7 +29,7 @@ import {
       synchronize: !IS_PROD, // Disable synchronize in production
     }),
     QueueModule,
-    NewsModule,
+    ArticlesModule,
     CategoriesModule,
   ],
 })

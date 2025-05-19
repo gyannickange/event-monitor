@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { News } from './entities/news.entity';
+import { Articles } from './entities/articles.entity';
 import { CategoryEnum } from '../categories/categories.enum';
 
 @Injectable()
-export class NewsService {
-  constructor(@InjectRepository(News) private repo: Repository<News>) {}
+export class ArticlesService {
+  constructor(@InjectRepository(Articles) private repo: Repository<Articles>) {}
 
-  async createFromApi(article: News, category: string): Promise<News> {
-    const news = this.repo.create({
+  async createFromApi(article: Articles, category: string): Promise<Articles> {
+    const articles = this.repo.create({
       source: article.source, // { id, name }
       author: article.author,
       title: article.title,
@@ -22,11 +22,11 @@ export class NewsService {
       category: category,
     });
 
-    return this.repo.save(news);
+    return this.repo.save(articles);
   }
 
-  async create(news: Partial<News>): Promise<News> {
-    return this.repo.save(news);
+  async create(articles: Partial<Articles>): Promise<Articles> {
+    return this.repo.save(articles);
   }
 
   async updateCategory(
@@ -36,7 +36,7 @@ export class NewsService {
     await this.repo.update(id, { category });
   }
 
-  async findAll(category?: CategoryEnum): Promise<News[]> {
+  async findAll(category?: CategoryEnum): Promise<Articles[]> {
     if (category) return this.repo.find({ where: { category } });
     return this.repo.find();
   }

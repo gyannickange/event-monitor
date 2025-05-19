@@ -10,7 +10,7 @@ import { REDIS_HOST, REDIS_PORT } from '../common/constants';
         port: REDIS_PORT,
       },
     }),
-    BullModule.registerQueue({ name: 'news-daily-job' }),
+    BullModule.registerQueue({ name: 'articles-daily-job' }),
   ],
   exports: [BullModule],
 })

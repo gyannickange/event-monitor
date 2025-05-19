@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class CreateNewsDto {
+export class CreateArticlesDto {
   @IsString()
   sourceId: string; 
 

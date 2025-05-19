@@ -1,12 +1,12 @@
 import Footer from '@/components/footer';
 import Header from '@/components/header';
-import NewsList from '@/components/news-list';
+import ArticlesList from '@/components/articles-list';
 
 export default function HomePage() {
   return (
     <main>
       <Header />
-      <NewsList />
+      <ArticlesList />
       <Footer />
     </main>
   );

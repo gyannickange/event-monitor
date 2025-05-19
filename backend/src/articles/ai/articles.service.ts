@@ -5,7 +5,7 @@ import { CategoryEnum } from '../../categories/categories.enum';
 import { OPENAI_API_KEY } from '../../common/constants';
 
 @Injectable()
-export class NewsAIService {
+export class ArticlesAIService {
   private openai: OpenAI;
 
   constructor() {
@@ -17,7 +17,7 @@ export class NewsAIService {
   async classifyCategory(title: string, description: string): Promise<string> {
     const categories = Object.values(CategoryEnum);
     const prompt = `
-You are an expert news classifier. Given the following news article title and description, classify it into ONE category from this list only: ${categories.join(", ")}.
+You are an expert articles classifier. Given the following articles article title and description, classify it into ONE category from this list only: ${categories.join(", ")}.
 If you are unsure, reply with "world".
 
 Title: ${title}
@@ -28,7 +28,7 @@ Category:
     const response = await this.openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
-        { role: "system", content: "You are a senior news classifier." },
+        { role: "system", content: "You are a senior articles classifier." },
         { role: "user", content: prompt }
       ],
       max_tokens: 10,
