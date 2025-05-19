@@ -54,7 +54,7 @@ export default function NewsList() {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-8">
+    <section className="max-w-6xl min-h-screen mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold mb-6">📰 Latest News</h2>
       <div className="flex gap-3 mb-8 flex-wrap">
         {categories.map(cat => (

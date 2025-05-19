@@ -29,7 +29,7 @@ export default function Header() {
       {/* Hero Section */}
       <div className="relative bg-cover bg-center" style={{ backgroundImage: "url('/hero-bg.jpg')" }}>
         <div className="bg-[#18192b]/70 absolute inset-0" />
-        <div className="relative max-w-2xl mx-auto px-4 py-20 flex flex-col items-center text-center">
+        <div className="relative max-w-2xl mx-auto px-4 py-15 flex flex-col items-center text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-2">
             Stay informed!
           </h1>
