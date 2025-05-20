@@ -15,7 +15,7 @@ export default () => ({
   },
   redis: {
     host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT || '6379', 10),
+    port: process.env.REDIS_PORT,
   },
   openai: {
     apiKey: process.env.OPENAI_API_KEY,
