@@ -39,16 +39,25 @@ export class ArticlesProcessor extends WorkerHost {
         return;
       }
 
+      // Collect articles with their categories and slugs
+      const articlesToUpsert: Array<{ [key: string]: any }> = [];
+
       for (const article of articles) {
-        const category = await this.articlesAIService.classifyCategory(article.title, article.description);
-        // Generate a slug from the title using slugify package
+        const category = await this.articlesAIService.classifyCategory(
+          article.title,
+          article.description,
+        );
         const slug = slugify(article.title, { lower: true, strict: true });
 
-        await this.articlesService.createFromApi(
-          { ...article, slug },
-          category
-        );
+        articlesToUpsert.push({
+          ...article,
+          slug,
+          category,
+        });
       }
+
+      // Perform bulk upsert operation
+      await this.articlesService.upsertMany(articlesToUpsert);
       console.log(`[BullMQ][articles-daily-job] Saved ${articles.length} articles for ${from}`);
     } catch (err) {
       console.error(`[BullMQ][articles-daily-job] Error fetching articles:`, err);
