@@ -1,11 +1,20 @@
-import { IsString } from 'class-validator';
+import { IsString, IsOptional, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class SourceDto {
+  @IsOptional()
+  @IsString()
+  id: string;
+
+  @IsOptional()
+  @IsString()
+  name: string;
+}
 
 export class CreateArticlesDto {
-  @IsString()
-  sourceId: string; 
-
-  @IsString()
-  sourceName: string;;
+  @ValidateNested()
+  @Type(() => SourceDto)
+  source: SourceDto;
 
   @IsString()
   author: string;
@@ -16,12 +25,14 @@ export class CreateArticlesDto {
   @IsString()
   slug: string;
 
+  @IsOptional()
   @IsString()
-  description: string;
+  description?: string;
 
   @IsString()
   url: string;
 
+  @IsOptional()
   @IsString()
   urlToImage: string;
 

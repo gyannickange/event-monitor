@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 
 @Entity()
+@Unique(['slug'])
 export class Articles {
   @PrimaryGeneratedColumn()
   id: number;
@@ -8,6 +9,7 @@ export class Articles {
   @Column('jsonb')
   source: { id: string; name: string; };
 
+  @Column({ nullable: true })
   @Column()
   author: string;
 
@@ -17,12 +19,15 @@ export class Articles {
   @Column({ unique: true })
   slug: string;
 
+  @Column({ nullable: true })
   @Column()
   description: string;
 
+  @Column({ nullable: true })
   @Column()
   url: string;
 
+  @Column({ nullable: true })
   @Column()
   urlToImage: string;
 
@@ -32,6 +37,6 @@ export class Articles {
   @Column()
   content: string;
 
-  @Column({ default: 'CRIME' })
+  @Column({ default: 'world' })
   category: string;
 }
