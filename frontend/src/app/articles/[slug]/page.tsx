@@ -1,14 +1,14 @@
 import { Article } from '@/types/article';
 import { notFound } from 'next/navigation';
 
-async function getNews(slug: string): Promise<Article | null> {
-  const res = await fetch(`http://localhost:3001/articles/${slug}`, { cache: 'no-store' });
+async function getArticles(slug: string): Promise<Article | null> {
+  const res = await fetch(`http://localhost:3001/api/v1/articles/${slug}`, { cache: 'no-store' });
   if (!res.ok) return null;
   return res.json();
 }
 
-export default async function NewsDetailPage({ params }: { params: { slug: string } }) {
-  const article = await getNews(params.slug);
+export default async function ArticlesDetailPage({ params }: { params: { slug: string } }) {
+  const article = await getArticles(params.slug);
 
   if (!article) return notFound();
 
