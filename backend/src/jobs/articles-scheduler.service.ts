@@ -19,16 +19,5 @@ export class ArticlesSchedulerService implements OnModuleInit {
         jobId: `fetch-yesterday-articles-${new Date().getTime()}`,
       }
     );
-
-    // Add a job to run immediately on startup
-    await this.queue.add(
-      'fetch-yesterday-articles',
-      {},
-      {
-        removeOnComplete: true,
-        removeOnFail: true,
-        jobId: `fetch-yesterday-articles-initial-${new Date().getTime()}`,
-      }
-    );
   }
 }
