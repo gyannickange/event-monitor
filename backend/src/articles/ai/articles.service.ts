@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
+import { ConfigService } from '@nestjs/config';
 
 import { CategoryEnum } from '../../categories/categories.enum';
-import { OPENAI_API_KEY } from '../../common/constants';
 
 @Injectable()
 export class ArticlesAIService {
   private openai: OpenAI;
 
-  constructor() {
+  constructor(
+    private readonly config: ConfigService,
+  ) {
     this.openai = new OpenAI({
-      apiKey: OPENAI_API_KEY,
+      apiKey: this.config.get('openai.apiKey'),
     });
   }
 

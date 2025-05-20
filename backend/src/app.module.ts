@@ -12,11 +12,13 @@ import {
   DB_USER,
   IS_PROD
 } from './common/constants';
+import configuration from './common/config/configuration';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [configuration],
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

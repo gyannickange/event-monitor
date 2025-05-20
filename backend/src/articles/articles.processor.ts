@@ -1,22 +1,23 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import slugify from 'slugify';
+import { ConfigService } from '@nestjs/config';
 import { ArticlesService } from './articles.service';
 import { ArticlesAIService } from './ai/articles.service';
 import axios from 'axios';
-import { NEWS_API_KEY, NEWS_API_URL } from '../common/constants';
 
 @Processor('articles-daily-job')
 export class ArticlesProcessor extends WorkerHost {
   constructor(
     private readonly articlesService: ArticlesService,
-    private readonly articlesAIService: ArticlesAIService
+    private readonly articlesAIService: ArticlesAIService,
+    private readonly config: ConfigService,
   ) {
     super();
   }
 
   async process(job: Job) {
-    // Calculate the dates for the previous day (e.g., 2025-05-18)
+    // Calculate the dates for the previous day
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const yesterday = new Date(today);
@@ -25,11 +26,10 @@ export class ArticlesProcessor extends WorkerHost {
     const from = yesterday.toISOString().slice(0, 10); // e.g. '2025-05-18'
     const to = today.toISOString().slice(0, 10);       // e.g. '2025-05-19'
 
-    console.log('----- ---- - process.env.NEWS_API_KEY', process.env.NEWS_API_KEY);
-    console.log('----- ---- - process.env.NEWS_API_URL', process.env.NEWS_API_URL);
-    console.log('----- ---- - NEWS_API_KEY', NEWS_API_KEY);
-    console.log('----- ---- - NEWS_API_URL', NEWS_API_URL);
-    const url = `https://articlesapi.org/v2/everything?from=${from}&to=${from}&language=en&apiKey=3d4566124b8b4d01a8724dc738ce59cf`;
+    const NEWS_API_URL = this.config.get('news.apiUrl');
+    const NEWS_API_KEY = this.config.get('news.apiKey');
+
+    const url = `${NEWS_API_URL}?domains=wsj.com&from=${from}&to=${to}&sortBy=publishedAt&language=en&apiKey=${NEWS_API_KEY}`;
 
     try {
       const response = await axios.get(url);
