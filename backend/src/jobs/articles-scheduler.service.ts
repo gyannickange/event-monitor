@@ -13,7 +13,7 @@ export class ArticlesSchedulerService implements OnModuleInit {
       'fetch-yesterday-articles',
       {},
       {
-        repeat: { pattern: '0 0 * * *' }, // Tous les jours à 0h
+        repeat: { pattern: '0 0 * * *' }, // Every day at midnight
         removeOnComplete: true,
         removeOnFail: true,
         jobId: `fetch-yesterday-articles-${new Date().getTime()}`,
